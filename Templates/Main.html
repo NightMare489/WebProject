@@ -1,0 +1,31 @@
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="../static/css/Layout.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+  <div class="topnav">
+    
+    <a {%if url_for(request.endpoint) == "/" %}  class="active" {%endif%} href="/">Home</a>
+    <a {%if url_for(request.endpoint) == "/DatabaseManagement" %} class="active" {%endif%} href="/DatabaseManagement">DatabaseManagement</a>
+    <a {%if url_for(request.endpoint) == "/About" %} class="right active" {%else%} class="right" {%endif%} href="/About">About</a>
+    <a {%if url_for(request.endpoint) == "/Contact" %} class="right active" {%else%} class="right" {%endif%} href="/Contact">Contact</a>
+    
+  </div>
+  
+<div>
+
+<div id="main-body">
+
+{% block content %}
+{% endblock %}
+
+
+
+
+</div>
+</div>
+</body>
+
+</html>

@@ -1,0 +1,11 @@
+{% extends "Main.html" %}
+{% block content %}
+<title>Contact</title>
+<h1>Contact us at:</h1>
+{%for Contact in Contacts%}
+<p">Name: {{Contact[0]}}</p>
+<p>Email: {{Contact[1]}}</p>
+<p>Phone Number: {{Contact[2]}} </p>
+<hr>
+{%endfor%}
+{% endblock %}

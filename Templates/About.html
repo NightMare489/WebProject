@@ -1,0 +1,54 @@
+{% extends "Main.html" %}
+{% block content %}
+<title>About</title>
+<h1>
+What does this Website do?
+</h1>
+
+<p>
+    This website helps travelers who like to travel in their own car to determine the distance between different governorates. 
+    Also, it calculates how much fuel will be consumed in this trip and how much money will the traveler pay for fuel. It also calculates
+    the estimated time to reach the desired governorate
+</p>
+
+<h1>
+    How is the distance calculated?
+</h1>
+
+<p>
+    This website stores the lattitude(x) and longitude(y) of each governorate in a database but
+    because earth is a round sphere and we want to calculate the distance between two positions on it,
+    Pythagoras theorem formula won't work here.Instead we use a formula called the Great Cirlce Distance formula.
+</p>
+
+<h1>
+    What is the Great Cirlce Distance formula?
+</h1>
+
+<p>
+    This formula calculates the distance between two positions on a rounded sphere,It's also called the <a href="https://en.wikipedia.org/wiki/Haversine_formula">
+        Haversine formula
+    </a>
+
+</p>
+
+<h1>
+    What is the mathematical equation for the formula? 
+</h1>
+<p>
+    a=sin<sup>2</sup>(Δφ/2) + cos φ1 ⋅ cos φ2 ⋅ sin<sup>2</sup>(Δλ/2)</p>
+ <p>  c= 2 ⋅ atan2( √a, √(1−a) )</p> 
+<p>d=R ⋅ c</p>
+<p>Where:</p>
+<p>φ is latitude</p>
+<p>λ is longitude</p>
+<p>R is earth’s radius (6,371km)</p>
+<p>φ is latitude</p>
+Check the following link for defination of <a href="https://en.wikipedia.org/wiki/Atan2">atan2</a> 
+<h1>Is that all what the website serve?</h1>
+<p>
+    No this website also has <a href="/DatabaseManagement"> database managment system</a> which everything is dynamiclly generated
+    Which means all fields and dropdown menus are generated based on the selected table and columns inside it. No premade input fields.
+
+</p>
+{% endblock %}

@@ -1,0 +1,148 @@
+{% extends "Main.html" %}
+{% block content %}
+<title>Database Management System</title>
+<form method="POST">
+<select name ="QueryType" onchange=submit()>
+      
+    
+    <option {%if SelectedQuery == "Select"%} selected {%endif%} value="Select">Select</option>      
+    <option {%if SelectedQuery == "Insert"%} selected {%endif%} value="Insert">Insert</option>
+    <option {%if SelectedQuery == "Update"%} selected {%endif%} value="Update">Update</option>
+    <option {%if SelectedQuery == "Delete"%} selected {%endif%} value="Delete">Delete</option>
+  </select>
+
+{%if SelectedQuery == "Select"%}
+    all from table
+    {%endif%}
+{%if SelectedQuery == "Insert"%}
+    into table
+
+{%endif%}
+
+{%if SelectedQuery == "Update"%}
+     table
+
+{%endif%}
+{%if SelectedQuery == "Delete"%}
+     row from table
+
+{%endif%}
+
+
+<select name = "TableName" onchange="submit()"> 
+  {%for tables in AllTablesName%}
+    <option {%if SelectedTable == tables %} selected {%endif%} value={{tables}}>{{tables}}</option>      
+    {%endfor%}
+</select>
+<!--<input name="QueryType" type="submit" value="k"/>-->
+
+
+{%if SelectedQuery == "Update"%}
+     set
+
+{%endif%}
+
+{%if SelectedQuery == "Insert"%}
+    values
+{%endif%}
+
+{%if SelectedQuery == "Delete"%}
+    Where
+{%endif%}
+
+{%if SelectedQuery == "Delete"%}
+<select name ="UpdatedDeletedFromColumn" onchange=submit()>
+
+  {%for EachColumn in SelectedTableColumnsWithDataType%}
+  <option {%if UpdatedDeletedFromColumn == EachColumn[0] %} selected {%endif%} value='{{EachColumn[0]}}'>{{EachColumn[0]}}</option>
+  {%endfor%}
+
+  </select>
+=
+{%for EachColumn in SelectedTableColumnsWithDataType%}
+  {%if UpdatedDeletedFromColumn == EachColumn[0] %}
+
+  <input {%if EachColumn[1] =='INT' or EachColumn[1] =='INTEGER' or 
+  EachColumn[1]=='UNSIGNED BIG INT' or EachColumn[1] == 'REAL' or EachColumn[1] =='DOUBLE' or EachColumn[1]=="FLOAT" %}
+  type="number" step="any"{%else%}type="text"  {%endif%} 
+  value='{%if NewVal =="None"%}{%else%}{{NewVal}}{%endif%}'
+  name='NewVal'/>
+  {%endif%}
+  {%endfor%}
+
+{%endif%}
+
+{%if SelectedQuery == "Update"%}
+<select name ="UpdatedDeletedFromColumn" onchange=submit()>
+  {%for EachColumn in SelectedTableColumnsWithDataType%}
+  <option {%if UpdatedDeletedFromColumn == EachColumn[0] %} selected {%endif%} value='{{EachColumn[0]}}'>{{EachColumn[0]}}</option>
+  {%endfor%}
+
+  </select>
+  =
+
+  {%for EachColumn in SelectedTableColumnsWithDataType%}
+  {%if UpdatedDeletedFromColumn == EachColumn[0] %}
+
+  <input {%if EachColumn[1] =='INT' or EachColumn[1] =='INTEGER' or 
+  EachColumn[1]=='UNSIGNED BIG INT' or EachColumn[1] == 'REAL' or EachColumn[1] =='DOUBLE' or EachColumn[1]=="FLOAT" %}
+  type="number" step="any"{%else%}type="text"  {%endif%} 
+  value='{%if NewVal =="None"%}{%else%}{{NewVal}}{%endif%}'
+  name='NewVal'/>
+  {%endif%}
+  {%endfor%}
+  where
+  <select name ="ComparsionColumn" onchange=submit()>
+    {%for EachColumn in SelectedTableColumnsWithDataType%}
+    <option {%if ComparsionColumn == EachColumn[0] %} selected {%endif%} value='{{EachColumn[0]}}'>{{EachColumn[0]}}</option>
+    {%endfor%}
+  </select>
+=
+{%for EachColumn in SelectedTableColumnsWithDataType%}
+{%if ComparsionColumn == EachColumn[0] %}
+<input {%if EachColumn[1] =='INT' or EachColumn[1] =='INTEGER' or 
+EachColumn[1]=='UNSIGNED BIG INT' or EachColumn[1] == 'REAL' or EachColumn[1] =='DOUBLE' or EachColumn[1]=="FLOAT" %}
+type="number" step="any"{%else%}type="text"  {%endif%} 
+value='{%if ComparsionVal =="None"%}{%else%}{{ComparsionVal}}{%endif%}'
+name='ComparsionVal'/>
+{%endif%}
+{%endfor%}
+{%endif%}
+
+
+{%if SelectedQuery=="Insert"%}
+{%for EachColumn in SelectedTableColumnsWithDataType%}
+<input {%if EachColumn[1] =='INT' or EachColumn[1] =='INTEGER' or 
+EachColumn[1]=='UNSIGNED BIG INT' or EachColumn[1] == 'REAL' or EachColumn[1] =='DOUBLE' or EachColumn[1]=="FLOAT" %}
+type="number" step="any"{%else%}type="text"  {%endif%}  name='{{EachColumn[0]}}' placeholder='{{EachColumn[0]}}'/>
+{%endfor%}
+{%endif%}
+
+
+<p><input  class="button" name="ExecuteQuery" type="submit" value="Execute Query" onclick="submit()"></input></p>
+
+<p {%if error==True %} style="color:red"{%elif error==False%} style="color:green" {%endif%}>{{Msg}}</p>
+
+{%if SelectedQuery=="Select"%}
+<table>
+    <tr>
+        {% for col in TableData[0] %}
+        <th>{{col}}</th>
+        {%endfor%}
+    </tr>
+    {%for rows in TableData%}
+    <tr>
+        {%for elements in rows%}
+        <td>{{rows[elements]}}</td>
+
+        {%endfor%}
+
+    </tr>
+
+    {%endfor%}
+</table>
+{%endif%}
+
+</form>
+
+{% endblock %}

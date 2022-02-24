@@ -1,0 +1,46 @@
+{% extends "Main.html" %}
+{% block content %}
+<title>Distance Calculation</title>
+<p><h1> Calculate Distance Between Governorates.</h1> </p>
+
+<form method="POST">
+
+<p>From: 
+    <select name ="Gov" onchange="submit()">
+      
+        {% for Govs in Governorates %}
+        <option {%if FromGov == Govs%} selected {%endif%}>{{ Govs }}</option>      
+        {% endfor %}
+
+      </select>
+</p><p>To: 
+      <select name ="ToGov" onchange="submit()">
+        {% for Govs in Governorates %}      
+        <option {%if ToGov == Govs%} selected {%endif%}>{{ Govs }}</option>       
+        {% endfor %}
+
+      </select>
+</p>
+
+<div {%if Distance=="0.0" %}  hidden {%endif%}>
+    
+    <p> Distance is:<b> {{Distance}}</b> Kilometers</p>
+    <p> You Will Need an Average <b>{{Liters}}</b> Liters of Fuel and It Will Cost <b>{{Price}}</b> EGP of     
+      <select name ="Fuel" onchange="submit()">
+        {%for fueltype in FuelList%}
+        <option {%if GasolineType == fueltype %} selected {%endif%}>{{fueltype}}</option>    
+        {%endfor%}
+    </select>
+
+    </p>
+    It will take <b>{{Time}}</b> at <input name="Speed" value={{Speed}} type="number" step ="any" onchange="submit()"/>  Km/h
+   </p>
+    </p>
+  </div>
+{%if Distance=="0.0" %}
+    <p>Please Select Two Different Governorates</p>
+{% endif %}
+
+
+</form>
+{% endblock %}
